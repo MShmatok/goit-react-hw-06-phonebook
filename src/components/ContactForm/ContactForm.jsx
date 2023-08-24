@@ -1,10 +1,15 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { ContainerForma, Label } from './ContactForm.styled';
+import { useDispatch, useSelector } from 'react-redux';
+import { setContacts } from 'redux/slice';
 
-const ContactForm = ({ saveData }) => {
+const ContactForm = () => {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
+
+  const contacts = useSelector(state => state.contacts);
+  const dispatch = useDispatch();
 
   const onChange = e => {
     const { name, value } = e.target;
@@ -21,6 +26,18 @@ const ContactForm = ({ saveData }) => {
         break;
     }
   };
+
+  const saveData = data => {
+    let isDuplicate = contacts.find(elem => {
+      return elem.name.toLowerCase() === data.name.toLowerCase();
+    });
+    if (isDuplicate) {
+      alert(`${data.name} is alredy in contacts!`);
+      return true;
+    }
+    dispatch(setContacts(data));
+  };
+
   const onSubmit = e => {
     e.preventDefault();
     if (saveData({ name, number })) {
@@ -65,7 +82,3 @@ const ContactForm = ({ saveData }) => {
 };
 
 export default ContactForm;
-
-ContactForm.propTypes = {
-  saveData: PropTypes.func.isRequired,
-};
