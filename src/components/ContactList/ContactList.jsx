@@ -1,4 +1,3 @@
-// import PropTypes from 'prop-types';
 import ContactItem from 'components/ContactItem/ContactItem';
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteContact } from 'redux/slice';
