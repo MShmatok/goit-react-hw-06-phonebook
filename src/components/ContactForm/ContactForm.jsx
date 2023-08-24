@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import PropTypes from 'prop-types';
 import { ContainerForma, Label } from './ContactForm.styled';
 import { useDispatch, useSelector } from 'react-redux';
 import { setContacts } from 'redux/slice';
